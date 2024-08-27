@@ -3,19 +3,19 @@
 
 namespace Hazel
 {
-	class WindowsCloseEvent : public Event
+	class WindowCloseEvent : public Event
 	{
 	public:
-		WindowsCloseEvent() = default;
+		WindowCloseEvent() = default;
 
-		EVENT_CLASS_TYPE(WindowsClose)
+		EVENT_CLASS_TYPE(WindowClose)
 		EVENT_CLASS_CATAGORY(EventCatagoryApplication)
 	};
 
-	class WindowsResizeEvent : public Event
+	class WindowResizeEvent : public Event
 	{
 	public:
-		WindowsResizeEvent(unsigned int width, unsigned int height)
+		WindowResizeEvent(unsigned int width, unsigned int height)
 			:m_Width(width), m_Height(height)
 		{
 		}
@@ -30,7 +30,7 @@ namespace Hazel
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(WindowsResize)
+		EVENT_CLASS_TYPE(WindowResize)
 		EVENT_CLASS_CATAGORY(EventCatagoryApplication)
 	private:
 		unsigned int m_Width, m_Height;

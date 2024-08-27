@@ -7,7 +7,7 @@ namespace Hazel
 	enum class EventType 
 	{
 		None = 0,
-		WindowsClose, WindowsResize, WindowsFocus, WindowsLostFocus, WindowsMoved,
+		WindowClose, WindowResize, WindowsFocus, WindowLostFocus, WindowMoved,
 		AppTick, AppUpdate, AppRender,
 		KeyPressed, KeyReleased,
 		MouseMoved, MouseScrolled, MouseButtonPressed, MouseButtonReleased,
@@ -30,12 +30,12 @@ namespace Hazel
 
 	class Event
 	{
-		friend class EventDispatch;
+		friend class EventDispatcher;
 	public:
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCatagoryFlags() const = 0;
-		virtual std::string ToString() const = 0;
+		virtual std::string ToString() const { return GetName(); }
 
 		bool IsInCatagory(EventCatagory catagory)
 		{

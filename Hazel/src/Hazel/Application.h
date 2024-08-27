@@ -1,6 +1,10 @@
 #pragma once
 #include "core.h"
 #include "Window.h"
+#include "Hazel/Events/ApplicationEvent.h"
+#include "Hazel/Events/Mouse.h"
+#include "Hazel/Events/Keyboard.h"
+#include "Hazel/Events/Event.h"
 
 namespace Hazel {
 	class HAZEL_API Application
@@ -9,7 +13,10 @@ namespace Hazel {
 		Application();
 		virtual ~Application();
 		void Run();
+		void OnEvent(Event& e);
 	private:
+		bool OnWindowClose(WindowCloseEvent& e);
+
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
 	};
