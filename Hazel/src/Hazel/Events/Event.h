@@ -32,6 +32,8 @@ namespace Hazel
 	{
 		friend class EventDispatcher;
 	public:
+		bool m_handle;
+
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCatagoryFlags() const = 0;
@@ -41,9 +43,6 @@ namespace Hazel
 		{
 			return GetCatagoryFlags() & catagory;
 		}
-
-	private:
-		bool m_handle;
 	};
 
 	class EventDispatcher
