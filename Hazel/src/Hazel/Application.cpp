@@ -7,8 +7,11 @@ namespace Hazel {
 
 #define EVENT_CALLBACK_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
+	Application* Application::s_Instance = nullptr;
+
 	Application::Application()
 	{
+		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(EVENT_CALLBACK_FN(OnEvent));
 	}
