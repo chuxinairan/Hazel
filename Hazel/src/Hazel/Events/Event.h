@@ -39,7 +39,7 @@ namespace Hazel
 		virtual int GetCatagoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 
-		bool IsInCatagory(EventCatagory catagory)
+		bool IsInCatgory(EventCatagory catagory)
 		{
 			return GetCatagoryFlags() & catagory;
 		}
