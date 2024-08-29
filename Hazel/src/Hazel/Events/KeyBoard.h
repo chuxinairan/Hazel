@@ -8,7 +8,7 @@ namespace Hazel
 	public:
 		inline int GetKeyCode() const { return m_Keycode; };
 
-		EVENT_CLASS_CATAGORY(EventCatagoryKeyboard | EventCatagoryInput)
+		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 	protected:
 		KeyEvent(int keycode)
 			:m_Keycode(keycode) {}

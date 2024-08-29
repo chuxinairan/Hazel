@@ -13,20 +13,20 @@ namespace Hazel
 		MouseMoved, MouseScrolled, MouseButtonPressed, MouseButtonReleased,
 	};
 
-	enum  EventCatagory
+	enum  EventCategory
 	{
-		EventCatagoryApplication = BIT(0),
-		EventCatagoryInput =	   BIT(1),
-		EventCatagoryKeyboard =    BIT(2),
-		EventCatagoryMouse =       BIT(3),
-		EventCatagoryMouseButton = BIT(4),
+		EventCategoryApplication = BIT(0),
+		EventCategoryInput =	   BIT(1),
+		EventCategoryKeyboard =    BIT(2),
+		EventCategoryMouse =       BIT(3),
+		EventCategoryMouseButton = BIT(4),
 	};
 
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }; \
 								virtual EventType GetEventType() const override { return GetStaticType(); }; \
 								virtual const char* GetName() const override { return #type; };
 
-#define EVENT_CLASS_CATAGORY(catagory) virtual int GetCatagoryFlags() const override { return catagory; };
+#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; };
 
 	class Event
 	{
@@ -36,12 +36,12 @@ namespace Hazel
 
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
-		virtual int GetCatagoryFlags() const = 0;
+		virtual int GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 
-		bool IsInCatgory(EventCatagory catagory)
+		bool IsInCatgory(EventCategory category)
 		{
-			return GetCatagoryFlags() & catagory;
+			return GetCategoryFlags() & category;
 		}
 	};
 

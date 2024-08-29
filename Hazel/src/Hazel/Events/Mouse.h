@@ -20,7 +20,7 @@ namespace Hazel
 		}
 
 		EVENT_CLASS_TYPE(MouseMoved)
-		EVENT_CLASS_CATAGORY(EventCatagoryMouse | EventCatagoryInput)
+		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
 		float m_MouseX, m_MouseY;
 	};
@@ -42,7 +42,7 @@ namespace Hazel
 		}
 
 		EVENT_CLASS_TYPE(MouseScrolled)
-		EVENT_CLASS_CATAGORY(EventCatagoryMouse | EventCatagoryInput)
+		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
 		float m_OffsetX, m_OffsetY;
 	};
@@ -52,7 +52,7 @@ namespace Hazel
 	public:
 		inline int GetMouseButton() const { return m_Button; }
 
-		EVENT_CLASS_CATAGORY(EventCatagoryMouseButton | EventCatagoryInput)
+		EVENT_CLASS_CATEGORY(EventCategoryMouseButton | EventCategoryInput)
 	protected:
 		MouseButtonEvent(int buttonCode)
 			:m_Button(buttonCode) {};

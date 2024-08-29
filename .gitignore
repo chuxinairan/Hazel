@@ -3,5 +3,8 @@
 bin/
 bin-int/
 
-# Files
+# General Files
 *.user
+
+# Particular Files
+SandBox/imgui.ini
