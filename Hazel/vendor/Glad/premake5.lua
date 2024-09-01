@@ -1,7 +1,7 @@
 project "Glad"
     kind "StaticLib"
     language "C"
-    staticruntime "off"
+    staticruntime "on"
     
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -22,9 +22,16 @@ project "Glad"
         systemversion "latest"
 
     filter "configurations:Debug"
-        runtime "Debug"
-        symbols "on"
+		defines "HZ_DEBUG"
+		runtime "Debug"
+		symbols "on"
 
-    filter "configurations:Release"
-        runtime "Release"
-        optimize "on"
+	filter "configurations:Release"
+		defines "HZ_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "HZ_DIST"
+		runtime "Release"
+		optimize "on"
