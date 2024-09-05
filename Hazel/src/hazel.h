@@ -3,6 +3,7 @@
 // For use by Hazel application
 #include "Hazel/Application.h"
 #include "Hazel/Layer.h"
+#include "Hazel/core.h"
 #include "Hazel/Log.h"
 
 #include "Hazel/Core/Timestep.h"
@@ -22,6 +23,8 @@
 #include "Hazel/Renderer/VertexArray.h"
 
 #include "Hazel/Renderer/OrthographicCamera.h"
+
+#include "Platform/OpenGL/OpenGLShader.h"
 // ------------------------------------
 
 // --------EntryPoint------------------
