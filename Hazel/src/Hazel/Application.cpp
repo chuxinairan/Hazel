@@ -22,6 +22,8 @@ namespace Hazel {
 		m_Window->SetEventCallback(EVENT_CALLBACK_FN(OnEvent));
 		m_Window->SetVSync(true);
 
+		Renderer::Init();
+
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 	}
