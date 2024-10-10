@@ -9,7 +9,7 @@ class ExampleLayer : public Hazel::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
+		: Layer("Example"), m_CameraController(16.0f / 9.0f, true)
 	{
 		m_VertexArray.reset(Hazel::VertexArray::Create());
 
@@ -117,29 +117,15 @@ public:
 
 	void OnUpdate(Hazel::Timestep timestep) override
 	{
-		HZ_TRACE("Timestep: {0}s ({1}ms)", timestep.GetSeconds(), timestep.GetMilliseconds());
-		if (Hazel::Input::IsKeyPressed(HZ_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraMoveSpeed * timestep;
-		else if (Hazel::Input::IsKeyPressed(HZ_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraMoveSpeed * timestep;
+		// Update
+		m_CameraController.OnUpdate(timestep);
 
-		if (Hazel::Input::IsKeyPressed(HZ_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraMoveSpeed * timestep;
-		else if (Hazel::Input::IsKeyPressed(HZ_KEY_UP))
-			m_CameraPosition.y += m_CameraMoveSpeed * timestep;
-
-		if (Hazel::Input::IsKeyPressed(HZ_KEY_A))
-			m_CameraRotation -= m_CameraRotateSpeed * timestep;
-		else if (Hazel::Input::IsKeyPressed(HZ_KEY_D))
-			m_CameraRotation += m_CameraRotateSpeed * timestep;
-
+		//Render
 		Hazel::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		Hazel::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotation);
 
-		Hazel::Renderer::BeginScene(m_Camera);
+		Hazel::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -180,6 +166,7 @@ public:
 
 	void OnEvent(Hazel::Event& e) override
 	{
+		m_CameraController.OnEvent(e);
 	}
 	
 private:
@@ -192,7 +179,7 @@ private:
 
 	Hazel::Ref<Hazel::Texture2D> m_Texture, m_ChernoTexture;
 
-	Hazel::OrthographicCamera m_Camera;
+	Hazel::OrthographicCameraController m_CameraController;
 	glm::vec3 m_CameraPosition;
 	float m_CameraMoveSpeed = 05.0f;
 
@@ -207,7 +194,7 @@ class Sandbox : public Hazel::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		PushOverlay(new ExampleLayer());
 	}
 	~Sandbox(){}
 };

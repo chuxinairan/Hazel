@@ -20,7 +20,7 @@ namespace Hazel
 		layer->OnAttach();
 	}
 
-	void LayerStack::PushOverlar(Layer* overlay)
+	void LayerStack::PushOverlay(Layer* overlay)
 	{
 		m_Layers.emplace_back(overlay);
 		overlay->OnAttach();
@@ -36,7 +36,7 @@ namespace Hazel
 		}
 	}
 
-	void LayerStack::PopOverlar(Layer* overlay)
+	void LayerStack::PopOverlay(Layer* overlay)
 	{
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), overlay);
 		if (it != m_Layers.end())
