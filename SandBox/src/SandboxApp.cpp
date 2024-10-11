@@ -198,8 +198,8 @@ class Sandbox : public Hazel::Application
 public:
 	Sandbox()
 	{
-		//PushOverlay(new Sandbox2D());
-		PushOverlay(new ExampleLayer());
+		PushOverlay(new Sandbox2D());
+		//PushOverlay(new ExampleLayer());
 	}
 	~Sandbox(){}
 };

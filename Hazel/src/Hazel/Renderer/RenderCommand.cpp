@@ -1,5 +1,5 @@
 #include "hzpch.h"
-#include "RendererCommand.h"
+#include "RenderCommand.h"
 
 #include "Platform/OpenGL/OpenGLRendererAPI.h"
 
