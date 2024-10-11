@@ -28,7 +28,3 @@
 
 #include "Platform/OpenGL/OpenGLShader.h"
 // ------------------------------------
-
-// --------EntryPoint------------------
-#include "Hazel/Core/EntryPoint.h"
-// ------------------------------------

@@ -1,9 +1,13 @@
 #include "hazel.h"
 
+#include <Hazel/Core/EntryPoint.h>
+
 #include <imgui/imgui.h>
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include "Sandbox2D.h"
 
 class ExampleLayer : public Hazel::Layer
 {
@@ -11,7 +15,7 @@ public:
 	ExampleLayer()
 		: Layer("Example"), m_CameraController(16.0f / 9.0f, true)
 	{
-		m_VertexArray.reset(Hazel::VertexArray::Create());
+		m_VertexArray = Hazel::VertexArray::Create();
 
 		float vertices[] = {
 			 0.5, -0.5, 0.0,   1.0, 0.0, 1.0, 1.0,
@@ -35,7 +39,7 @@ public:
 		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 
 
-		m_SquareVA.reset(Hazel::VertexArray::Create());
+		m_SquareVA = Hazel::VertexArray::Create();
 
 		float squareVertices[] = {
 			 0.5, -0.5, 0.0, 1.0, 0.0,
@@ -194,6 +198,7 @@ class Sandbox : public Hazel::Application
 public:
 	Sandbox()
 	{
+		//PushOverlay(new Sandbox2D());
 		PushOverlay(new ExampleLayer());
 	}
 	~Sandbox(){}
