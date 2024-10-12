@@ -14,6 +14,8 @@
 
 #include "Hazel/ImGui/ImGuiLayer.h"
 
+#include "Hazel/Debug/Instrumentor.h"
+
 // --------Renderer--------------------
 #include "Hazel/Renderer/Renderer.h"
 #include "Hazel/Renderer/Renderer2D.h"
