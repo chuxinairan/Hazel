@@ -91,7 +91,7 @@
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Hazel\Hazel.lib\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Hazel\Hazel.lib "..\bin\Debug-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Hazel\Hazel.lib "..\bin\Debug-windows-x86_64\Sandbox\" &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Hazel\Hazel.lib\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Hazel\Hazel.lib "..\bin\Debug-windows-x86_64\Hazel-Editor\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Hazel\Hazel.lib "..\bin\Debug-windows-x86_64\Hazel-Editor\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -118,7 +118,7 @@
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-x86_64\Hazel\Hazel.lib\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Hazel\Hazel.lib "..\bin\Release-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Hazel\Hazel.lib "..\bin\Release-windows-x86_64\Sandbox\" &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\Hazel\Hazel.lib\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Hazel\Hazel.lib "..\bin\Release-windows-x86_64\Hazel-Editor\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Hazel\Hazel.lib "..\bin\Release-windows-x86_64\Hazel-Editor\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -145,7 +145,7 @@
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Dist-windows-x86_64\Hazel\Hazel.lib\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\Hazel\Hazel.lib "..\bin\Dist-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\Hazel\Hazel.lib "..\bin\Dist-windows-x86_64\Sandbox\" &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Dist-windows-x86_64\Hazel\Hazel.lib\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\Hazel\Hazel.lib "..\bin\Dist-windows-x86_64\Hazel-Editor\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\Hazel\Hazel.lib "..\bin\Dist-windows-x86_64\Hazel-Editor\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -612,6 +612,7 @@
     <ClCompile Include="src\Hazel\Core\Layer.cpp" />
     <ClCompile Include="src\Hazel\Core\LayerStack.cpp" />
     <ClCompile Include="src\Hazel\Core\Log.cpp" />
+    <ClCompile Include="src\Hazel\Core\Window.cpp" />
     <ClCompile Include="src\Hazel\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Hazel\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Hazel\Renderer\Buffer.cpp" />
