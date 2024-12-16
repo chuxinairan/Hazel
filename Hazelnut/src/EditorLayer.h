@@ -22,6 +22,9 @@ namespace Hazel
 		Ref<Hazel::VertexArray> m_SquareVA;
 		Ref<Hazel::Shader> m_FlatColorShader;
 
+		Ref<Scene> m_ActiveScene;
+		entt::entity m_SquareEntity;
+
 		Ref<Hazel::Texture2D> m_CheckerboardTexture;
 
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
