@@ -32,14 +32,14 @@ namespace Hazel
 	{
 		friend class EventDispatcher;
 	public:
-		bool m_handle;
+		bool m_handle = false;;
 
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 
-		bool IsInCatgory(EventCategory category)
+		bool IsInCategory(EventCategory category)
 		{
 			return GetCategoryFlags() & category;
 		}

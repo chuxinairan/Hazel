@@ -10,8 +10,7 @@ namespace Hazel
 	public:
 		Hazelnut()
 		{
-			PushOverlay(new EditorLayer());
-			//PushOverlay(new ExampleLayer());
+			PushLayer(new EditorLayer());
 		}
 		~Hazelnut() {}
 	};
