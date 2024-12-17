@@ -23,7 +23,7 @@ namespace Hazel
 		Ref<Hazel::Shader> m_FlatColorShader;
 
 		Ref<Scene> m_ActiveScene;
-		entt::entity m_SquareEntity;
+		Entity m_SquareEntity;
 
 		Ref<Hazel::Texture2D> m_CheckerboardTexture;
 
