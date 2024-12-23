@@ -4,7 +4,7 @@
 
 namespace Hazel
 {
-	class EditorLayer : public Hazel::Layer
+	class EditorLayer : public Layer
 	{
 	public:
 		EditorLayer();
