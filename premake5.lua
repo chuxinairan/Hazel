@@ -1,6 +1,6 @@
 workspace "Hazel"
 	architecture "x64"
-	startproject "Sandbox"
+	startproject "Hazelnut"
 
 	configurations
 	{
@@ -19,11 +19,13 @@ IncludeDir["ImGui"] = "Hazel/vendor/imgui"
 IncludeDir["glm"] = "Hazel/vendor/glm"
 IncludeDir["stb_image"] = "Hazel/vendor/stb_image"
 IncludeDir["entt"] = "Hazel/vendor/entt/include"
+IncludeDir["yaml_cpp"] = "Hazel/vendor/yaml-cpp/include"
 
 group "Dependencies"
 	include "Hazel/vendor/GLFW"
 	include "Hazel/vendor/Glad"
 	include "Hazel/vendor/imgui"
+	include "Hazel/vendor/yaml-cpp"
 group "" 
 
 project "Hazel"
@@ -51,7 +53,8 @@ project "Hazel"
 
 	defines
 	{
-		"_CRT_SECURE_NO_WARNINGS"
+		"_CRT_SECURE_NO_WARNINGS",
+		"YAML_CPP_STATIC_DEFINE"
 	}
 
 	includedirs
@@ -63,7 +66,8 @@ project "Hazel"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.yaml_cpp}"
 	}
 
 	links 
@@ -71,7 +75,8 @@ project "Hazel"
 		"GLFW",
 		"Glad",
 		"ImGui",
-		"opengl32.lib"
+		"yaml-cpp",
+		"opengl32.lib",
 	}
 
 	filter "system:windows"
