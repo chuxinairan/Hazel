@@ -121,7 +121,7 @@ namespace Hazel
 			m_Minimized = true;
 			return false;
 		}
-		m_Minimized = true;
+		m_Minimized = false;
 		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
 
 		return true;
