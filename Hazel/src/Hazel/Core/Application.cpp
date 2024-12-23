@@ -9,8 +9,6 @@
 
 namespace Hazel
 {
-#define EVENT_CALLBACK_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
-
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application(const std::string& name)
@@ -21,7 +19,7 @@ namespace Hazel
 		s_Instance = this;
 
 		m_Window = Window::Create(WindowProps(name));
-		m_Window->SetEventCallback(EVENT_CALLBACK_FN(OnEvent));
+		m_Window->SetEventCallback(HZ_EVENT_CALLBACK_FN(Application::OnEvent));
 		m_Window->SetVSync(true);
 
 		Renderer::Init();
@@ -79,8 +77,8 @@ namespace Hazel
 		HZ_PROFILE_FUNCTION();
 
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(EVENT_CALLBACK_FN(OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(EVENT_CALLBACK_FN(OnWindowResize));
+		dispatcher.Dispatch<WindowCloseEvent>(HZ_EVENT_CALLBACK_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(HZ_EVENT_CALLBACK_FN(Application::OnWindowResize));
 
 		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
 		{

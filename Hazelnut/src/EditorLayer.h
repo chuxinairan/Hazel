@@ -17,6 +17,11 @@ namespace Hazel
 		virtual void OnEvent(Hazel::Event& event) override;
 		virtual void OnImGuiRender() override;
 	private:
+		bool OnKeyPressed(KeyPressedEvent& e);
+		void NewScene();
+		void OpenScene();
+		void SaveSceneAs();
+	private:
 		OrthographicCameraController m_CameraController;
 
 		// Temp
