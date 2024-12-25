@@ -12,6 +12,8 @@
 #include "Hazel/Core/KeyCodes.h"
 #include "Hazel/Core/MouseButtonCodes.h"
 
+#include "Hazel/Math/Math.h"
+
 #include "Hazel/ImGui/ImGuiLayer.h"
 
 #include "Hazel/Scene/Scene.h"
