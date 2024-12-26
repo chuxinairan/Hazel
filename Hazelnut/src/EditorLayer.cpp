@@ -97,6 +97,7 @@ namespace Hazel
 			m_ViewportSize.x > 0 && m_ViewportSize.y > 0)
 		{
 			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			HZ_CORE_WARN("w{0}, h{1}", m_ViewportSize.x, m_ViewportSize.y);
 			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
 			m_EditorCamera.SetViewportSize(m_ViewportSize.x, m_ViewportSize.y);
 			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
@@ -129,8 +130,9 @@ namespace Hazel
 		{
 			int pixelData = m_Framebuffer->ReadPixel(1, mouseX, mouseY);
 			HZ_CORE_WARN("Pixel data = {0}", pixelData);
+			HZ_CORE_WARN("x{0}, y{1}", mouseX, mouseY);
+			//m_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, m_ActiveScene.get());
 		}
-
 		m_Framebuffer->Unbind();
 	}
 
@@ -207,6 +209,13 @@ namespace Hazel
 		m_SceneHierarchyPanel.OnImGuiRender();
 
 		ImGui::Begin("Status");
+
+		// ÏÔÊ¾Êó±êÐü¸¡µÄentity
+		std::string name = "None";
+		//if (m_HoveredEntity)
+			//name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
+		ImGui::Text("Hovered Entity: %s", name.c_str());
+
 		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
 		ImGui::Text("Draw Calls: %d", stats.DrawCalls);
@@ -215,7 +224,7 @@ namespace Hazel
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 		ImGui::End();
 
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 30, 30 });
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 		ImGui::Begin("Viewport");
 		auto viewportOffset = ImGui::GetCursorPos(); // Includes tab bar
 		m_ViewportFocused = ImGui::IsWindowFocused();
