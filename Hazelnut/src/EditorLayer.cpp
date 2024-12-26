@@ -131,7 +131,7 @@ namespace Hazel
 			int pixelData = m_Framebuffer->ReadPixel(1, mouseX, mouseY);
 			HZ_CORE_WARN("Pixel data = {0}", pixelData);
 			HZ_CORE_WARN("x{0}, y{1}", mouseX, mouseY);
-			//m_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, m_ActiveScene.get());
+			m_HoveredEntity = pixelData == -1 ? Entity() : Entity((entt::entity)pixelData, m_ActiveScene.get());
 		}
 		m_Framebuffer->Unbind();
 	}
@@ -212,8 +212,8 @@ namespace Hazel
 
 		// ÏÔÊ¾Êó±êÐü¸¡µÄentity
 		std::string name = "None";
-		//if (m_HoveredEntity)
-			//name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
+		if (m_HoveredEntity)
+			name = m_HoveredEntity.GetComponent<TagComponent>().Tag;
 		ImGui::Text("Hovered Entity: %s", name.c_str());
 
 		auto stats = Renderer2D::GetStats();
@@ -300,6 +300,7 @@ namespace Hazel
 		m_EditorCamera.OnEvent(e);
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<KeyPressedEvent>(HZ_EVENT_CALLBACK_FN(EditorLayer::OnKeyPressed));
+		dispatcher.Dispatch<MouseButtonPressedEvent>(HZ_EVENT_CALLBACK_FN(EditorLayer::OnMouseButtonPressed));
 	}
 
 	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
@@ -330,6 +331,16 @@ namespace Hazel
 			break;
 		}
 		}
+	}
+
+	bool EditorLayer::OnMouseButtonPressed(MouseButtonPressedEvent& e)
+	{
+		if (e.GetMouseButton() == (int)Mouse::ButtonLeft)
+		{
+			if (m_ViewportHovered && !ImGuizmo::IsOver() && !Input::IsKeyPressed(Key::LeftAlt))
+				m_SceneHierarchyPanel.SetSelectedEntity(m_HoveredEntity);
+		}
+		return false;
 	}
 
 	void EditorLayer::NewScene()
