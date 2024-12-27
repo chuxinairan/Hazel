@@ -1,32 +1,34 @@
-workspace "Hazel"
-	architecture "x64"
-	startproject "Hazelnut"
+--[[  关于premake中的token（符记）： https://premake.github.io/docs/Tokens/  ]]
 
-	configurations
+include "./vendor/premake/premake_customization/solution_items.lua"
+include "Dependencies.lua"
+
+workspace "Hazel"                     --工作区
+    architecture "x86_64"           --架构
+    startproject "Hazel-Editor"       --[[启动项目]]
+
+    configurations
+    {                               --配置
+        "Debug",
+        "Release",
+        "Dist"
+    }
+
+    flags                           --设置编译器选项
 	{
-		"Debug",
-		"Release",
-		"Dist"
+		"MultiProcessorCompile"     --多处理器并行编译
 	}
 
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"                 --（方便输出和中间目录编写）
 
--- Include directories relative to root folder (solution directory)
-IncludeDir = {}
-IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
-IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
-IncludeDir["ImGui"] = "Hazel/vendor/imgui"
-IncludeDir["glm"] = "Hazel/vendor/glm"
-IncludeDir["stb_image"] = "Hazel/vendor/stb_image"
-IncludeDir["entt"] = "Hazel/vendor/entt/include"
-IncludeDir["yaml_cpp"] = "Hazel/vendor/yaml-cpp/include"
-IncludeDir["ImGuizmo"] = "Hazel/vendor/ImGuizmo"
-
+---------------------------------------------------------------------------------------
+--包含Hazel/Hazel/vendor/GLFW、Hazel/Hazel/vendor/Glad、Hazel/Hazel/vendor/imgui中的premake文件，将其作为依赖项，并合并到这里
 group "Dependencies"
-	include "Hazel/vendor/GLFW"
-	include "Hazel/vendor/Glad"
-	include "Hazel/vendor/imgui"
-	include "Hazel/vendor/yaml-cpp"
+    include "vendor/premake"
+    include "Hazel/vendor/GLFW"
+    include "Hazel/vendor/Glad"
+    include "Hazel/vendor/imgui"
+    include "Hazel/vendor/yaml-cpp"
 group "" 
 
 project "Hazel"
@@ -34,7 +36,7 @@ project "Hazel"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "on"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -57,7 +59,8 @@ project "Hazel"
 	defines
 	{
 		"_CRT_SECURE_NO_WARNINGS",
-		"YAML_CPP_STATIC_DEFINE"
+		"YAML_CPP_STATIC_DEFINE",
+		"GLFW_INCLUDE_NONE"
 	}
 
 	includedirs
@@ -71,7 +74,8 @@ project "Hazel"
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.yaml_cpp}",
-		"%{IncludeDir.ImGuizmo}"
+		"%{IncludeDir.ImGuizmo}",
+        "%{IncludeDir.VulkanSDK}"
 	}
 
 	links 
@@ -92,36 +96,59 @@ project "Hazel"
 		defines
 		{
 			"HZ_PLATFORM_WINDOWS",
-			"HZ_BUILD_DLL",
-			"GLFW_INCLUDE_NONE"
+			"HZ_BUILD_DLL"
 		}
 
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Hazel-Editor/\"")
-		}
+		--  //////////////////////////////////////////////////////////////////////
+        --  ////  NOW WE USE HAZEL AS A STATIC LIB, SO DON'T NEED THIS COMMAND  ////
+        --  //////////////////////////////////////////////////////////////////////
+        --[[
+        postbuildcommands           --构建项目完成后执行的指令
+        {
+            ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
+        }   
+        --将当前项目的构建目标文件复制到 "../bin/" 下的一个名为 "Debug/Sandbox" 或 "Release/Sandbox" 的子目录中
+        ]]
 
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		runtime "Debug"
 		symbols "on"
+		 links
+        {
+            "%{Library.ShaderC_Debug}",
+            "%{Library.SPIRV_Cross_Debug}",
+            "%{Library.SPIRV_Cross_GLSL_Debug}"
+        }
 
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
 		runtime "Release"
 		optimize "on"
+		links
+        {
+            "%{Library.ShaderC_Release}",
+            "%{Library.SPIRV_Cross_Release}",
+            "%{Library.SPIRV_Cross_GLSL_Release}"
+        }
 
 	filter "configurations:Dist"
 		defines "HZ_DIST"
 		runtime "Release"
 		optimize "on"
+		links
+        {
+            "%{Library.ShaderC_Release}",
+            "%{Library.SPIRV_Cross_Release}",
+            "%{Library.SPIRV_Cross_GLSL_Release}"
+        }
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "on"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -168,12 +195,13 @@ project "Sandbox"
 		runtime "Release"
 		optimize "on"
 
+
 project "Hazelnut"
 	location "Hazelnut"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "on"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -203,8 +231,7 @@ project "Hazelnut"
 		defines
 		{
 			"HZ_PLATFORM_WINDOWS",
-			"HZ_BUILD_DLL",
-			"GLFW_INCLUDE_NONE"
+			"HZ_BUILD_DLL"
 		}
 		systemversion "latest"
 		

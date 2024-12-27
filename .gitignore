@@ -1,10 +1,19 @@
-# Directories
-.vs/
-bin/
+# Binaries
+**/bin/
+!vendor/premake/bin/
 bin-int/
 
-# General Files
-*.user
+# Hazel files
+*.log
 
-# Particular Files
-SandBox/imgui.ini
+# Visual Studio files and folder
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# Directories
+Hazel/vendor/VulkanSDK
+Hazelnut/assets/cache
+scripts/__pycache__
