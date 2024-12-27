@@ -128,14 +128,14 @@ namespace Hazel
 		// Update scene
 		m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
 
-		auto [mx, my] = ImGui::GetMousePos();
+		auto [mx, my] = ImGui::GetMousePos();  // 鼠标在显示屏幕上的位置, 左上角为起点
 		mx -= m_ViewportBounds[0].x;
-		my -= m_ViewportBounds[0].y;
+		my -= m_ViewportBounds[0].y - 24;
 		glm::vec2 viewportSize = m_ViewportBounds[1] - m_ViewportBounds[0];
 		my = viewportSize.y - my;
 		int mouseX = (int)mx;
 		int mouseY = (int)my;
-		if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)viewportSize.x && mouseY < (int)viewportSize.y)
+		if (mouseX >= 0 && mouseY >= 0 && mouseX < (int)m_ViewportSize.x && mouseY < (int)m_ViewportSize.y)
 		{
 			int pixelData = m_Framebuffer->ReadPixel(1, mouseX, mouseY);
 			HZ_CORE_WARN("Pixel data = {0}", pixelData);
@@ -216,6 +216,7 @@ namespace Hazel
 		}
 
 		m_SceneHierarchyPanel.OnImGuiRender();
+		m_ContentBrowserPanel.OnImGuiRender();
 
 		ImGui::Begin("Status");
 
