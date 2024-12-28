@@ -29,6 +29,7 @@ group "Dependencies"
     include "Hazel/vendor/Glad"
     include "Hazel/vendor/imgui"
     include "Hazel/vendor/yaml-cpp"
+    include "Hazel/vendor/Box2D"
 group "" 
 
 project "Hazel"
@@ -73,6 +74,7 @@ project "Hazel"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
+		"%{IncludeDir.Box2D}",
 		"%{IncludeDir.yaml_cpp}",
 		"%{IncludeDir.ImGuizmo}",
         "%{IncludeDir.VulkanSDK}"
@@ -80,6 +82,7 @@ project "Hazel"
 
 	links 
 	{ 
+		"Box2D",
 		"GLFW",
 		"Glad",
 		"ImGui",
