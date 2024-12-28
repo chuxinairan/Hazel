@@ -20,17 +20,23 @@ namespace Hazel
 		virtual void OnUpdate(Hazel::Timestep timestep) override;
 		virtual void OnEvent(Hazel::Event& event) override;
 		virtual void OnImGuiRender() override;
-		void OnScenePlay();
-		void OnSceneStop();
-		// UI Panels
-		void UI_Toolbar();
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 		void NewScene();
 		void OpenScene();
 		void OpenScene(const std::filesystem::path& path);
+		void SaveScene();
 		void SaveSceneAs();
+
+		void SerializeScene(Ref<Scene> scene, const std::filesystem::path& path);
+		void OnScenePlay();
+		void OnSceneStop();
+
+		void OnDuplicateEntity();
+
+		// UI Panels
+		void UI_Toolbar();
 	private:
 		// Temp
 		Ref<Hazel::VertexArray> m_SquareVA;
@@ -43,6 +49,8 @@ namespace Hazel
 		Ref<Texture2D> m_IconPlay, m_IconStop;
 
 		Ref<Scene> m_ActiveScene;
+		Ref<Scene> m_EditorScene;
+		std::filesystem::path m_EditorScenePath;
 		Entity m_SquareEntity;
 		Entity m_CameraEntity;
 		Entity m_SecondCamera;
