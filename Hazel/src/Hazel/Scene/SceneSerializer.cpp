@@ -128,7 +128,6 @@ namespace Hazel
 
 	static void SerializeEntity(YAML::Emitter& out, Entity entity)
 	{
-		out << YAML::BeginMap; // Entity
 		HZ_CORE_ASSERT(entity.HasComponent<IDComponent>(), "");
 		out << YAML::BeginMap; // Entity
 		out << YAML::Key << "Entity" << YAML::Value << entity.GetUUID();
