@@ -23,6 +23,7 @@ namespace Hazel
 	private:
 		bool OnKeyPressed(KeyPressedEvent& e);
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
+		void OnOverlayRender();
 		void NewScene();
 		void OpenScene();
 		void OpenScene(const std::filesystem::path& path);
@@ -58,6 +59,8 @@ namespace Hazel
 		bool m_PrimaryCamera = true;
 		EditorCamera m_EditorCamera;
 		OrthographicCameraController m_CameraController;
+
+		bool m_ShowPhysicsColliders = false;
 
 		enum class SceneState
 		{
